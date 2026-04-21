@@ -873,6 +873,18 @@
 
 <!-- ── SCRIPTS ────────────────────────────────────────────────────────────── -->
 <script>
+// ── SECURITY: HTML SANITISER ───────────────────────────────────────────────
+// Escapes any HTML in values coming from Google Sheets before DOM insertion
+function esc(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 // ── CONFIGURATION ─────────────────────────────────────────────────────────
 const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRSuhlbFzMnmHI2N_T0zTZHQ4Uf8cIyhxSWUDOUDATfgeepHLVb-Ny5tHx-2t75rQ/pub?gid=1016377940&single=true&output=csv';
 
@@ -1049,12 +1061,12 @@ function renderMap(munis) {
         onEachFeature(f, layer) {
           const m = geoLookup[f.properties.shapeName];
           layer.bindTooltip(`
-            <div class="tt-name">${m ? m.sq : f.properties.shapeName}</div>
+            <div class="tt-name">${m ? esc(m.sq) : esc(f.properties.shapeName)}</div>
             <div class="tt-rows">
               ${m && m.est !== null ? `<span>Estimated dogs: ${m.est.toLocaleString()}</span>` : '<span>Not surveyed</span>'}
               ${m && m.d1k ? `<span>Per 1,000 inh.: ${m.d1k}</span>` : ''}
               ${m && m.steril !== null && m.est ? `<span>Sterilisation: ${m.steril.toFixed(1)}%</span>` : ''}
-              ${m && m.round ? `<span>Round: ${m.round}</span>` : ''}
+              ${m && m.round ? `<span>Round: ${esc(m.round)}</span>` : ''}
             </div>`, { className:'leaflet-tooltip-custom', sticky:true });
           layer.on({
             mouseover(e) { e.target.setStyle({ weight:2, color:'#16191f', fillOpacity:1 }); },
@@ -1092,7 +1104,7 @@ function renderRegions(munis) {
     const d = document.createElement('div');
     d.className = 'region-item';
     d.innerHTML = `
-      <div class="region-name">${r.en}</div>
+      <div class="region-name">${esc(r.en)}</div>
       <div class="region-stats">
         <div><span class="rs-val">${r.est.toLocaleString()}</span><span class="rs-key">Estimated dogs</span></div>
         <div><span class="rs-val">${r.steril.toFixed(1)}%</span><span class="rs-key">Sterilised</span></div>
@@ -1146,7 +1158,7 @@ function renderTable(munis) {
     const tr  = document.createElement('tr');
     const na  = m.est === null;
     tr.innerHTML = `
-      <td class="td-muni">${m.sq} <span class="td-sq">${m.en}</span></td>
+      <td class="td-muni">${esc(m.sq)} <span class="td-sq">${esc(m.en)}</span></td>
       <td class="${na?'td-na':'td-est'}">${na?'Not surveyed':m.est.toLocaleString()}</td>
       <td class="${na?'td-na':''}">${na?'—':m.dkm!==null?m.dkm.toFixed(2):'—'}</td>
       <td class="${na?'td-na':''}">${na?'—':m.steril!==null?m.steril.toFixed(1)+'%':'—'}</td>
