@@ -380,7 +380,10 @@
   .resource-card {
     padding: 22px 28px; border-right: 1px solid var(--rule);
     opacity: .6; position: relative;
+    display: flex; flex-direction: column;
   }
+
+  .resource-card .resource-desc { flex: 1; }
 
   .resource-card:last-child { border-right: none; }
 
@@ -805,27 +808,24 @@
       <span class="resource-soon">Coming soon</span>
       <div class="resource-badge">PDF · Methodology</div>
       <div class="resource-name">Survey Methodology Guide</div>
-      <div class="resource-desc">Full technical documentation of the street survey and estimation methodology used in this platform.</div>
+      <div class="resource-desc">Full technical documentation of the street survey design, population estimation method, and detectability correction used in this platform.</div>
     </div>
     <div class="resource-card" style="opacity:1">
       <div class="resource-badge">PDF · Report</div>
       <div class="resource-name">National Survey Report 2024–2025</div>
-      <div class="resource-desc">Complete results of Kosovo's first nationwide street dog population survey across all 38 municipalities. Published November 2025 by FOUR PAWS &amp; ARF Kosovo.</div>
-      <br>
+      <div class="resource-desc">Complete results of Kosovo's first nationwide street dog population survey across all 38 municipalities, published November 2025 by FOUR PAWS and ARF Kosovo.</div>
       <a class="legal-link" href="https://www.animalrights-rks.org/wp-content/uploads/2025/11/Report-National-Survey-of-the-Street-Dog-Population-in-Kosovo.pdf" target="_blank" rel="noopener">Download PDF →</a>
     </div>
     <div class="resource-card" style="opacity:1">
       <div class="resource-badge">External · ICAM</div>
       <div class="resource-name">Humane Dog Population Management Guidance</div>
-      <div class="resource-desc">International Companion Animal Management (ICAM) Coalition guidelines for humane, evidence-based dog population management.</div>
-      <br>
+      <div class="resource-desc">International Companion Animal Management (ICAM) Coalition guidelines for humane, evidence-based dog population management used as the methodological reference for this survey.</div>
       <a class="legal-link" href="https://www.icam-coalition.org/download/humane-dog-population-management-guidance/" target="_blank" rel="noopener">Download Guidance →</a>
     </div>
     <div class="resource-card" style="opacity:1">
       <div class="resource-badge">External · FOUR PAWS</div>
       <div class="resource-name">Companion Animal E-Learning Hub</div>
-      <div class="resource-desc">A comprehensive learning platform for companion animal professionals and volunteers, with the goal of reaching a wider audience of professionals who directly influence the lives of dogs and cats worldwide.</div>
-      <br>
+      <div class="resource-desc">A comprehensive learning platform for companion animal professionals and volunteers, reaching a wider audience of professionals who directly influence the lives of dogs and cats worldwide.</div>
       <a class="legal-link" href="https://fourpaws.talentlms.com/" target="_blank" rel="noopener">Visit E-Learning Hub →</a>
     </div>
   </div>
